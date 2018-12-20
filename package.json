@@ -4,7 +4,8 @@
   "description": "Virtual Piano website",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpage": "webpack-dev-server --watch"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,12 @@
   },
   "homepage": "https://github.com/arturjankowski202166/VirtualPianoWeb#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "webpack": "^4.28.0",
+    "webpack-dev-server": "^3.1.10",
+    "webpack-server": "^0.1.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.1.2"
   }
 }
