@@ -1,0 +1,27 @@
+{
+  "name": "virtualpianoweb",
+  "version": "0.0.1",
+  "description": "Virtual Piano website",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arturjankowski202166/VirtualPianoWeb.git"
+  },
+  "keywords": [
+    "virtual",
+    "piano",
+    "website"
+  ],
+  "author": "Artur Jankowski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arturjankowski202166/VirtualPianoWeb/issues"
+  },
+  "homepage": "https://github.com/arturjankowski202166/VirtualPianoWeb#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
