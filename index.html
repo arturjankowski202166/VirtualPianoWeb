@@ -3,10 +3,90 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title></title>
 </head>
 <body>
-  <h1 class="display-1">Hello World</h1>
-  <script src="./bundle.js"></script>
+    <script src="./bundle.js"></script>
+  <!--HEADER AND MENU-->
+    <nav class="navbar navbar-inverse">
+     <div class="container-fluid">
+       <div class="navbar-header">
+         <a class="navbar-brand" href="#">Virtual Piano Showoff</a>
+       </div>
+       <ul class="nav navbar-nav">
+         <li class="active"><a href="#">Home</a></li>
+         <li><a href="#">Page 1</a></li>
+         <li><a href="#">Page 2</a></li>
+       </ul>
+       <ul class="nav navbar-nav navbar-right">
+         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+       </ul>
+     </div>
+    </nav>
+  <!--SIDEBAR-->
+  <div>
+    <form ref='uploadForm'
+      id='uploadForm'
+      action='http://localhost:3000/upload'
+      method='post'
+      encType="multipart/form-data">
+        <input type="file" name="sampleFile" />
+        <input type='submit' value='Upload!' />
+    </form>
+  </div>
+  <!--content-->
+  <div>
+  </div>
+  <!--FOOTER-->
+  <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+      <h3>About Us</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+         Pellentesque imperdiet consectetur dolor in elementum.</p>
+
+      </div>
+      <div class="col-md-2 list">
+        <ul>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Lorem Ipsum</a></li>
+        </ul>
+
+      </div>
+      <div class="col-md-2 list">
+        <ul>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Lorem Ipsum</a></li>
+          <li><a href="#">Lorem Ipsum</a></li>
+        </ul>
+
+      </div>
+      <div class="col-md-2">
+
+      </div>
+      <div class="col-md">
+        <h5><strong>Contact Info</strong></h5>
+        <p><strong>Adress:</strong> 514 S. Magnolia St.
+Orlando, FL 32806 <!-- Random Adress -->
+</p>
+        <p><strong>Email:</strong> email@example.com</p>
+        <p><strong>Tel.:</strong> (888) 888 8888</p>
+      </div>
+    </div>
+  </div>
+</footer>
 </body>
 </html>

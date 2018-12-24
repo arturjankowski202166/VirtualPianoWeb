@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>[#TW-48957] CWE 73 | External Control of File Name or Path (Veracode HIGH)</title>
+    <meta http-equiv="Content-Type" Content="application/vnd.ms-word; charset=UTF-8">
+        <style type="text/css">
+
+.tableBorder, .grid
+{
+    background-color: #fff;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableBorder td, .grid td
+{
+    vertical-align: top;
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+
+.noPadding
+{
+    padding: 0 !important;
+}
+
+h3 .subText
+{
+    font-size: 60%;
+    font-weight: normal;
+}
+
+.tabLabel
+{
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-bottom:none;
+    padding: 2px;
+    display: inline;
+}
+
+td.blank
+{
+    padding: 0;
+    margin: 0;
+}
+
+.blank td
+{
+    border: none;
+}
+
+#descriptionArea
+{
+    margin: 0;
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+
+hr
+{
+    border-top:1px solid #aaa;
+}
+
+hr.fullcontent
+{
+  height: 15px;
+  padding: 10px 0;
+  background: #fff url('https://thingworx.jira.com/images/icons/hr.gif') no-repeat scroll center;
+}
+
+</style>
+
+</head>
+<body>
+
+<table class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+                            <h3 class="formtitle">
+                        [TW-48957]&nbsp;<a href="https://thingworx.jira.com/browse/TW-48957">CWE 73 | External Control of File Name or Path (Veracode HIGH)</a>
+            <span class="subText">
+               Created: 16/Nov/18                   &nbsp;Updated: 10/Dec/18
+
+                                            </span>
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Status:</b></td>
+        <td width="80%">Ready for Work</td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Project:</b></td>
+        <td width="80%"><a href="https://thingworx.jira.com/secure/BrowseProject.jspa?id=12071">ThingWorx</a></td>
+    </tr>
+
+        <tr>
+            <td><b>Component/s:</b></td>
+            <td>
+                                        <a title="Platform"
+                href="https://thingworx.jira.com/issues/?jql=project%3D12071%20AND%20%22component%22%3D12012%20ORDER%20BY%20priority%20ASC"
+            >Platform</a>                        </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Affects Version/s:</b></td>
+            <td>
+                                        <a title="I (ETD 1/24)"
+                href="https://thingworx.jira.com/issues/?jql=project%3D12071%20AND%20%22affectedVersion%22%3D40279%20ORDER%20BY%20priority%20ASC"
+            >I (ETD 1/24)</a>                        </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Fix Version/s:</b></td>
+            <td>
+                                        <a title="7.4.19 (ETD 3/1)"
+                href="https://thingworx.jira.com/issues/?jql=project%3D12071%20AND%20%22fixVersion%22%3D40369%20ORDER%20BY%20priority%20ASC"
+            >7.4.19 (ETD 3/1)</a>,                    <a title="8.0.17 (ETD 3/1)"
+                href="https://thingworx.jira.com/issues/?jql=project%3D12071%20AND%20%22fixVersion%22%3D40370%20ORDER%20BY%20priority%20ASC"
+            >8.0.17 (ETD 3/1)</a>,                    <a title="8.1.13 (ETD 3/1)"
+                href="https://thingworx.jira.com/issues/?jql=project%3D12071%20AND%20%22fixVersion%22%3D40371%20ORDER%20BY%20priority%20ASC"
+            >8.1.13 (ETD 3/1)</a>,                    <a title="8.2.11 (ETD 3/1)"
+                href="https://thingworx.jira.com/issues/?jql=project%3D12071%20AND%20%22fixVersion%22%3D40372%20ORDER%20BY%20priority%20ASC"
+            >8.2.11 (ETD 3/1)</a>,                    <a title="8.3.6 (ETD 3/1)"
+                href="https://thingworx.jira.com/issues/?jql=project%3D12071%20AND%20%22fixVersion%22%3D40368%20ORDER%20BY%20priority%20ASC"
+            >8.3.6 (ETD 3/1)</a>                        </td>
+    </tr>
+    
+            <tr>
+            <td><b>Security Level:</b></td>
+            <td>
+                TW View Only
+                            </td>
+       </tr>
+    </table>
+
+<br />
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td bgcolor="#f0f0f0" valign="top" width="20%">
+            <b>Type:</b>
+        </td>
+        <td bgcolor="#ffffff" valign="top"  width="30%" >
+            Bug
+        </td>
+
+                    <td bgcolor="#f0f0f0">
+                <b>Priority:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap>
+                Critical
+            </td>
+            </tr>
+    <tr>
+                        <td bgcolor="#f0f0f0" valign="top" width="20%">
+                <b>Reporter:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top"  width="30%" >
+                                            <a class="user-hover" rel="acyriac" id="word_reporter_acyriac" href="https://thingworx.jira.com/secure/ViewProfile.jspa?name=acyriac">Antony Cyriac</a>
+
+                            </td>
+        
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Assignee:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >
+                                            <a class="user-hover" rel="ebialowas" id="word_assignee_ebialowas" href="https://thingworx.jira.com/secure/ViewProfile.jspa?name=ebialowas">Ewa Bialowas</a>
+
+                            </td>
+            </tr>
+    	<tr>
+		<td bgcolor="#f0f0f0" width="20%">
+			<b>Resolution:</b>
+		</td>
+		<td bgcolor="#ffffff" valign="top" width="30%" nowrap>
+            				Unresolved
+                    </td>
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Votes:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%" nowrap>
+                0
+            </td>
+        
+    </tr>
+    
+        <tr>
+        <td bgcolor="#f0f0f0" width="20%">
+            <b>Labels:</b>
+        </td>
+        <td id="labels-259340-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>
+                            VeracodeScan                    </td>
+    </tr>
+    
+    	<tr>
+        		<td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">
+                            Not Specified
+            		</td>
+    </tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">
+                            Not Specified
+            		</td>
+	</tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">
+                            Not Specified
+            		</td>
+    </tr>
+    
+    </table>
+
+
+
+    <br />
+
+    	<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+            
+
+                <tr>
+            <td bgcolor="#f0f0f0" width=20% valign=top>
+                <b>Attachments:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top">
+                                    <img src="https://thingworx.jira.com/images/icons/attach/image.gif" height="16" width="16" border="0" alt="PNG File">
+                    screenshot-1.png &nbsp;&nbsp;&nbsp;
+                            </td>
+        </tr>
+        
+    
+
+
+
+                        <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Team:</b></td>
+                <td id="customfield_11140-259340-value" class="value" bgcolor="#ffffff" width="80%">    NTT
+</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Epic Link:</b></td>
+                <td id="customfield_10840-259340-value" class="value" bgcolor="#ffffff" width="80%">
+    <a class="aui-label ghx-label-9" href="https://thingworx.jira.com/browse/TW-47783">
+        Butterflies Backport
+    </a>
+</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Sprint:</b></td>
+                <td id="customfield_10440-259340-value" class="value" bgcolor="#ffffff" width="80%">Security Issues</td>
+            </tr>
+                                    <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Security Impacted?:</b></td>
+                <td id="customfield_13543-259340-value" class="value" bgcolor="#ffffff" width="80%">    Yes
+</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>CVSS Score:</b></td>
+                <td id="customfield_13640-259340-value" class="value" bgcolor="#ffffff" width="80%">    8.7
+</td>
+            </tr>
+            </table>
+
+    <br/>
+
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+    <tr>
+        <td bgcolor="#bbbbbb" width="1%" nowrap align="center">
+            &nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td id="descriptionArea">
+            <p>Description: This call to java.io.File.!operator_javanewinit() contains a path manipulation flaw. The argument to the function is a filename constructed using untrusted input. If an attacker is allowed to specify all or part of the filename, it may be possible to gain unauthorized access to files on the server, including those outside the webroot, that would be normally be inaccessible to end users. The level of exposure depends on the effectiveness of input validation routines, if any. The first argument to !operator_javanewinit() contains tainted data from the variable backupLocation. The tainted data originated from an earlier call to javax.servlet.http.httpservletrequest.getheader.</p>
+
+<p>Remediation: Validate all untrusted input to ensure that it conforms to the expected format, using centralized data validation routines when possible. When using black lists, be sure that the sanitizing routine performs a sufficient number of iterations to remove all instances of disallowed characters.</p>
+
+<p>*<b>Affected  Code</b>*<br/>
+com/thingworx/persistence/neo4j/management/GraphDatabaseServiceManager.java, line 515<br/>
+ <span class="image-wrap" style=""><a id="120106_thumb" href="/secure/attachment/120106/120106_screenshot-1.png" title="screenshot-1.png" file-preview-type="image" file-preview-id="120106" file-preview-title="screenshot-1.png"><jira-attachment-thumbnail url="https://thingworx.jira.com/secure/thumbnail/120106/screenshot-1.png?default=false" jira-url="https://thingworx.jira.com/secure/thumbnail/120106/screenshot-1.png" filename="screenshot-1.png"><img src="https://thingworx.jira.com/secure/thumbnail/120106/screenshot-1.png" data-attachment-name="screenshot-1.png" data-attachment-type="thumbnail" data-media-services-id="710d42d4-11c7-4dca-91cb-68fc708a7893" data-media-services-type="file" style="border: 0px solid black" /></jira-attachment-thumbnail></a></span> </p>
+            <br/>
+        </td>
+    </tr>
+    </table>
+
+    <br/>
+
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+    <tr>
+        <td bgcolor="#bbbbbb" width="1%" nowrap align="center">
+            &nbsp;<font color="#ffffff"><b>Comments</b></font>&nbsp;
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="grid" style="margin: 0;">
+                <tr id="comment-header-464806"><td bgcolor="#f0f0f0">
+            Comment by  
+                                                        <a class="user-hover" rel="jedreyer" id="word_commented_jedreyer" href="https://thingworx.jira.com/secure/ViewProfile.jspa?name=jedreyer">Jeff Dreyer</a>
+
+                                        <font size="-2">
+            [
+                <font color="#336699">27/Nov/18</font>
+
+                            ]
+            </font>
+
+        </td></tr>
+        <tr id="comment-body-464806"><td bgcolor="#ffffff">
+            <p>scoring as an 8.7: <a href="https://www.first.org/cvss/calculator/3.0#CVSS:3.0/AV:N/AC:L/PR:H/UI:N/S:C/C:N/I:H/A:H" class="external-link" rel="nofollow">https://www.first.org/cvss/calculator/3.0#CVSS:3.0/AV:N/AC:L/PR:H/UI:N/S:C/C:N/I:H/A:H</a></p>
+
+<p>An Attacker could delete arbitrary files off of the system hosting thingworx if they are able to access the input to the function described in the description. </p>
+
+<p>A developer should review this to determine if any controls are already in place to prevent attackers from accessing the input to this function or any controls that would limit the directories accessed by this function, then adjust the CVSS score accordingly. </p>
+        </td></tr>
+                <tr id="comment-header-464808"><td bgcolor="#f0f0f0">
+            Comment by  
+                                                        <a class="user-hover" rel="jedreyer" id="word_commented_jedreyer" href="https://thingworx.jira.com/secure/ViewProfile.jspa?name=jedreyer">Jeff Dreyer</a>
+
+                                        <font size="-2">
+            [
+                <font color="#336699">27/Nov/18</font>
+
+                            ]
+            </font>
+
+        </td></tr>
+        <tr id="comment-body-464808"><td bgcolor="#ffffff">
+            <p>This does not have to be fixed for I/J since this only affects NEO</p>
+        </td></tr>
+            </table>
+Generated at Mon Dec 10 14:15:51 UTC 2018 by Ewa Bialowas using Jira 1001.0.0-SNAPSHOT#100095-sha1:3406b1165fa1ab33a678ccbf93ffefb29eecd9d2.
+
+</body>
+</html>

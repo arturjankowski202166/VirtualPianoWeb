@@ -1,0 +1,12 @@
+FIrst of all
+ThingworxServer 1203
+PlatformSettings
+User.java
+
+(since = { 6, 6 }, deprecatedSince = { 8, 4 })
+
+_logger.warn("Service \"createHttpClient(String username, String password, Boolean ignoreSSLErrors, Double timeout, Boolean " +
+            "useNTLM, String workstation, String domain, Boolean useProxy, String proxyHost, Integer proxyPort, String proxyScheme)\" " +
+            "has been deprecated, please use Service \"createHttpClient(String username, byte[] password, Boolean ignoreSSLErrors, " +
+            "Double timeout, Boolean useNTLM, String workstation, String domain, Boolean useProxy, String proxyHost, Integer proxyPort, " +
+            "String proxyScheme)\" instead");
