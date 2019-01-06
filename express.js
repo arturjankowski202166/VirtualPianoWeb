@@ -1,6 +1,7 @@
 var app = new (require('express'))();
 const fileUpload = require('express-fileupload');
-var port = 80
+var port = 80;
+
 
 app.use(fileUpload());
 
@@ -8,6 +9,9 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + '/index.html')
 })
 
+app.use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+.set('view engine', 'ejs');
 
 app.post('/upload', function(req, res) {
   if (Object.keys(req.files).length == 0) {
