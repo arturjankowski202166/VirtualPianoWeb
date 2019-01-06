@@ -1,6 +1,6 @@
 var app = new (require('express'))();
 const fileUpload = require('express-fileupload');
-var port = 3000
+var port = 80
 
 app.use(fileUpload());
 
