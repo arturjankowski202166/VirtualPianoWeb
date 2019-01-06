@@ -1,19 +1,20 @@
-var app = new (require('express'))();
+const express = require('express');
+const path = require('path');
 const fileUpload = require('express-fileupload');
-var port = 80;
+var PORT = 80;
 
 
-app.use(fileUpload());
+express().use(fileUpload());
 
-app.get("/", function(req, res) {
+express().get("/", function(req, res) {
   res.sendFile(__dirname + '/index.html')
 })
 
-app.use(express.static(path.join(__dirname, 'public')))
+express().use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
 .set('view engine', 'ejs');
 
-app.post('/upload', function(req, res) {
+express().post('/upload', function(req, res) {
   if (Object.keys(req.files).length == 0) {
     return res.status(400).send('No files were uploaded.');
   }
@@ -31,10 +32,4 @@ app.post('/upload', function(req, res) {
   });
 });
 
-app.listen(port, function(error) {
-  if (error) {
-    console.error(error)
-  } else {
-    console.info("Open up http://localhost:%s/ in your browser.", port, port)
-  }
-});
+express().listen(PORT, () => console.log(`Listening on ${ PORT }`));
