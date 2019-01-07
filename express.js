@@ -40,6 +40,7 @@ express().listen(PORT, () => console.log(`Listening on ${ PORT }`));*/
 var app = new (require('express'))();
 const fileUpload = require('express-fileupload');
 var PORT = process.env.PORT || 5000;
+var fs = require('fs');
 
 app.use(fileUpload());
 
@@ -47,6 +48,15 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + '/index.html')
 })
 
+app.get("/getFileList", function(req, res) {
+var files = fs.readdirSync('./uploaded/');
+console.log(files);
+res.send(files);
+});
+
+app.get("/getFile/:filename", function(req, res) {
+res.sendFile(__dirname + '/uploaded/' + req.params.filename);
+});
 
 app.post('/upload', function(req, res) {
   if (Object.keys(req.files).length == 0) {

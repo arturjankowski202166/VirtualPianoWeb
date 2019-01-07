@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpage": "webpack-dev-server --watch",
-	"start": "node express"
+    "start": "node express"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "bootstrap": "^4.1.3",
     "express": "^4.16.4",
     "express-fileupload": "^1.0.0",
+    "fs": "0.0.1-security",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.6",
     "webpack": "^4.28.0",
