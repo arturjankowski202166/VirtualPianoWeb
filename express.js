@@ -66,10 +66,10 @@ app.post('/upload', function(req, res) {
   });
 });
 
-app.listen(port, function(error) {
+app.listen(PORT, function(error) {
   if (error) {
     console.error(error)
   } else {
-    console.info("Open up http://localhost:%s/ in your browser.", port, port)
+    console.info("Open up http://localhost:%s/ in your browser.", PORT, PORT)
   }
 });
