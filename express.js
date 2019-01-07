@@ -39,7 +39,7 @@ express().post('/upload', function(req, res) {
 express().listen(PORT, () => console.log(`Listening on ${ PORT }`));*/
 var app = new (require('express'))();
 const fileUpload = require('express-fileupload');
-var port = 5000
+var port = 80
 
 app.use(fileUpload());
 
