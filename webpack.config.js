@@ -5,7 +5,7 @@ module.exports = {
   devServer: {
     host: "localhost",
     port: 8081,
-    https: false
+    https: false,
   },
   output: {
     filename: 'bundle.js',
