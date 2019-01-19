@@ -3,8 +3,81 @@ const fileUpload = require('express-fileupload');
 var PORT = process.env.PORT || 5000;
 var fs = require('fs');
 //db connection
-var mysql = require('mysql')
+let jwt = require('jsonwebtoken');
+const config = require('./express.config.js');
+var mysql = require('mysql');
 var bodyParser = require('body-parser');
+var middleware = require('./middleware');
+
+
+class HandlerGenerator
+{
+  login(req, res)
+  {
+    console.log(req.body);
+    let email = req.body.email;
+    let password = req.body.password;
+    console.log(email + " " + password);
+    connection.query('SELECT email, password from accounts where email = "'+ email +'" AND password = "'+ password +'"', function (err, rows, fields) {
+    if (err) return res.status(500).send(err);
+    console.log("Rows: " + rows)
+    if (rows.length > 0)
+    {
+    let token = jwt.sign({username: email},
+        config.secret,
+        { 
+          expiresIn: '24h' // expires in 24 hours
+        }
+      );
+      res.json({
+        success: true,
+        message: 'Authentication successful!',
+        token: token
+      });
+    }
+    else
+        res.send(
+    {
+      "email": email,
+      "access": false 
+    });
+  });
+}
+  upload(req, res)
+  {
+    if (Object.keys(req.files).length == 0) 
+    {
+      return res.status(400).send('No files were uploaded.');
+    }
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    console.log(req.files);
+    let sampleFile = req.files.sampleFile;
+    //console.log(sampleFile.name);
+    // Use the mv() method to place the file somewhere on your server
+    sampleFile.mv('./uploaded/'+sampleFile.name, function(err) 
+    {
+      if (err)
+        return res.status(500).send(err);
+      connection.query(`INSERT INTO recordings (name, userId) values (` + sampleFile.name + `, 1)`,function(err,rows,fields)
+      {
+        if (err) return res.status(500).send(err);
+        res.send('File uploaded!');
+      });
+    });
+  }
+
+  userFiles(req,res)
+  {
+    connection.query('SELECT name, email from recordings join accounts where recordings.userId = accounts.id AND accounts.id = '+ req.params.userId, function (err, rows, fields) 
+    {
+      if (err) return res.status(500).send(err);
+    
+      console.log('The solution is: ', rows)
+      res.send(rows);
+    });
+  }
+}
+
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -12,85 +85,49 @@ var connection = mysql.createConnection({
   password : '',
   database : 'vrpiano'
 });
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-
 connection.connect();
 
-
-
-app.use(fileUpload());
-
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + '/index.html')
-})
-
-
-
-app.get("/getFileList", function(req, res) {
-connection.query('SELECT name, email from recordings join accounts where recordings.userId = accounts.id', function (err, rows, fields) {
-  if (err) return res.status(500).send(err);
-
-  console.log('The solution is: ', rows)
-  res.send(rows);
-})
-});
-
-app.get("/getFile/:filename", function(req, res) {
-res.sendFile(__dirname + '/uploaded/' + req.params.filename);
-});
-
-app.post('/login', function(req, res)
+function main()
 {
-	console.log(req.body);
-	email = req.body.email;
-	password = req.body.password;
-	console.log(email + " " + password);
-	connection.query('SELECT email, password from accounts where email = "'+ email +'" AND password = "'+ password +'"', function (err, rows, fields) {
-  if (err) return res.status(500).send(err);
-  console.log("Rows: " + rows)
-  if (rows.length > 0)
-  res.send(
-  {
-	  "email": email,
-	  "access": true  
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended: true}));
+  app.use(fileUpload());
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
   });
-  else
-	    res.send(
-  {
-	  "email": email,
-	  "access": false 
-  });
-	});
-});
+  let handlers = new HandlerGenerator();
+  console.log(handlers);
 
-app.post('/upload', function(req, res) {
-  if (Object.keys(req.files).length == 0) {
-    return res.status(400).send('No files were uploaded.');
-  }
-	
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  console.log(req.files);
-  let sampleFile = req.files.sampleFile;
-  //console.log(sampleFile.name);
-  // Use the mv() method to place the file somewhere on your server
-  sampleFile.mv('./uploaded/'+sampleFile.name, function(err) {
-    if (err)
-      return res.status(500).send(err);
-	connection.query(`INSERT INTO recordings (name, userId) values (` + sampleFile.name + `, 1)`,function(err,rows,fields)
-	{
-		if (err) return res.status(500).send(err);
-		res.send('File uploaded!');
-	});
+  app.post('/login', handlers.login);
+
+
+  app.get("/", function(req, res) {
+    res.sendFile(__dirname + '/index.html')
+  })
+  
+  
+  
+  app.get("/getFileList", function(req, res) {
+  connection.query('SELECT name, email from recordings join accounts where recordings.userId = accounts.id', function (err, rows, fields) {
+    if (err) return res.status(500).send(err);
+  
+    console.log('The solution is: ', rows)
+    res.send(rows);
+  })
   });
-});
+  
+  app.get("/getFileList/:userId", middleware.checkToken, handlers.userFiles);
+
+  app.get("/getFile/:filename", function(req, res) {
+    res.sendFile(__dirname + '/uploaded/' + req.params.filename);
+  });
+  
+  app.post('/upload', middleware.checkToken, handlers.upload);
+  
+
+}
 
 app.listen(PORT, function(error) {
   if (error) {
@@ -99,3 +136,5 @@ app.listen(PORT, function(error) {
     console.info("Open up http://localhost:%s/ in your browser.", PORT, PORT)
   }
 });
+
+main();

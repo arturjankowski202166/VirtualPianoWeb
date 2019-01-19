@@ -32,6 +32,12 @@ function loadRecordings()
 	request.send();
 
 }
+
+function openLogin()
+{
+	
+}
+
 function getRequest(path)
 {
 }
