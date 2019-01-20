@@ -12,13 +12,22 @@ var middleware = require('./middleware');
 
 class HandlerGenerator
 {
+  comment(req,res)
+  {
+    console.log("INSERT into comments(Description, userId, recordingId) values("+req.body.description + ',' + req.body.userId + ',' + req.body.recordingId+")");
+    connection.query("INSERT into comments(Description, userId, recordingId) values('"+req.body.description + "'," + req.body.userId + ',' + req.body.recordingId+")", function(err){
+    if (err) throw err;
+  res.send({statusCode: '200', status: "success"})
+  });
+    
+  }
   login(req, res)
   {
     console.log(req.body);
     let email = req.body.email;
     let password = req.body.password;
     console.log(email + " " + password);
-    connection.query('SELECT email, password from accounts where email = "'+ email +'" AND password = "'+ password +'"', function (err, rows, fields) {
+    connection.query('SELECT email, password, id from accounts where email = "'+ email +'" AND password = "'+ password +'"', function (err, rows, fields) {
     if (err) return res.status(500).send(err);
     console.log("Rows: " + rows)
     if (rows.length > 0)
@@ -32,7 +41,8 @@ class HandlerGenerator
       res.json({
         success: true,
         message: 'Authentication successful!',
-        token: token
+        token: token,
+        userId: rows[0].id
       });
     }
     else
@@ -68,13 +78,28 @@ class HandlerGenerator
 
   userFiles(req,res)
   {
-    connection.query('SELECT name, email from recordings join accounts where recordings.userId = accounts.id AND accounts.id = '+ req.params.userId, function (err, rows, fields) 
+    connection.query('SELECT name, email from recordings join accounts where recordings.userId = accounts.id AND  AND accounts.id = '+ req.params.userId, function (err, rows, fields) 
     {
       if (err) return res.status(500).send(err);
     
       console.log('The solution is: ', rows)
       res.send(rows);
     });
+  }
+
+  deleteFile(req,res)
+  {
+    connection.query("SELECT name from recordings where recording.id="+ req.params.fileId, function(err, rows, fields)
+    {
+      fs.unlink(rows[0].name, function (err) {
+        if (err) throw err;
+        // if no error, file has been deleted successfully
+        connection.query("UPDATE `vrpiano`.`recordings` SET `isDeleted` = 1 WHERE `id` = " + req.params.fileId);
+        console.log('File deleted!');
+    }
+  );
+
+  });  
   }
 }
 
@@ -94,7 +119,9 @@ function main()
   app.use(fileUpload());
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Request-Headers", "*");
+    res.header("Access-Control-Allow-Headers", "Authorization");
+    res.header ('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
     next();
   });
   let handlers = new HandlerGenerator();
@@ -110,7 +137,7 @@ function main()
   
   
   app.get("/getFileList", function(req, res) {
-  connection.query('SELECT name, email from recordings join accounts where recordings.userId = accounts.id', function (err, rows, fields) {
+  connection.query('SELECT name, email, recordings.id from recordings join accounts where recordings.userId = accounts.id', function (err, rows, fields) {
     if (err) return res.status(500).send(err);
   
     console.log('The solution is: ', rows)
@@ -120,13 +147,22 @@ function main()
   
   app.get("/getFileList/:userId", middleware.checkToken, handlers.userFiles);
 
+  app.delete("/deleteFile/:fileId", middleware.checkToken, handlers.deleteFile);
+
   app.get("/getFile/:filename", function(req, res) {
     res.sendFile(__dirname + '/uploaded/' + req.params.filename);
   });
   
   app.post('/upload', middleware.checkToken, handlers.upload);
   
+  app.post('/comments/', handlers.comment);
 
+  app.get('/comments/:id',function(req,res){
+    connection.query("select * from comments where comments.recordingId="+req.params.id,function(err,rows,fields)
+  {
+    res.send(rows);
+  });
+  });
 }
 
 app.listen(PORT, function(error) {

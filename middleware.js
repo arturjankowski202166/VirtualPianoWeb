@@ -9,6 +9,7 @@ let checkToken = (req, res, next) => {
   }
 
   if (token) {
+    console.log(token);
     jwt.verify(token, config.secret, (err, decoded) => {
       if (err) {
         return res.json({
